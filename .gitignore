@@ -273,5 +273,6 @@ mysite/media/
 .pytest_cache/
 .ipython/
 .env
+.envrc
 .envs/*
 !.envs/.local/
