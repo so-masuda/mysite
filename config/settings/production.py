@@ -63,6 +63,18 @@ SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
     default=True,
 )
 
+# CORS
+# ------------------------------------------------------------------------------
+# WARNING: Tightly controlled CORS configuration is critical for security.
+# By default, this list is empty, which blocks all cross-origin requests.
+# You MUST set the DJANGO_CORS_ALLOWED_ORIGINS environment variable in production
+# to a comma-separated list of trusted origins.
+# Failure to do so will break any cross-origin functionality.
+# Example: DJANGO_CORS_ALLOWED_ORIGINS=https://example.com,https://api.example.com
+#
+# https://github.com/adamchainz/django-cors-headers#cors_allowed_origins
+CORS_ALLOWED_ORIGINS = env.list("DJANGO_CORS_ALLOWED_ORIGINS", default=[])
+
 
 # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
 AWS_ACCESS_KEY_ID = env("DJANGO_AWS_ACCESS_KEY_ID")
