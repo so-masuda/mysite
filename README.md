@@ -13,6 +13,16 @@ Moved to [settings](https://cookiecutter-django.readthedocs.io/en/latest/1-getti
 
 ## Basic Commands
 
+### Setting up your environment
+
+The local development environment requires a `DJANGO_SECRET_KEY` environment variable to be set. This is a security measure to prevent running the application with a known, insecure secret key.
+
+You can generate a new secret key using the following command:
+
+    python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+
+Once you have a key, you can set it as an environment variable or include it in a `.env` file in the project root.
+
 ### Setting Up Your Users
 
 - To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
