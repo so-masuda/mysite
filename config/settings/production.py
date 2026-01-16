@@ -4,6 +4,7 @@ from .base import DATABASES
 from .base import INSTALLED_APPS
 from .base import REDIS_URL
 from .base import SPECTACULAR_SETTINGS
+from .base import TEMPLATES
 from .base import env
 
 # GENERAL
@@ -224,5 +225,19 @@ LOGGING = {
 SPECTACULAR_SETTINGS["SERVERS"] = [
     {"url": "https://masudaso.com", "description": "Production server"},
 ]
+# TEMPLATES
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#templates
+# https://docs.djangoproject.com/en/dev/ref/templates/api/#django.template.loaders.cached.Loader
+TEMPLATES[0]["OPTIONS"]["loaders"] = [
+    (
+        "django.template.loaders.cached.Loader",
+        [
+            "django.template.loaders.filesystem.Loader",
+            "django.template.loaders.app_directories.Loader",
+        ],
+    ),
+]
+
 # Your stuff...
 # ------------------------------------------------------------------------------
