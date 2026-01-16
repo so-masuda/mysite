@@ -14,7 +14,14 @@
 {% elif 'primary' in attrs.tags %}btn-primary
 {% else %}btn-primary
 {% endif %}"
->
-  {% slot %}
-  {% endslot %}
+                      data-on-click-disable>
+  <span class="spinner" style="display: none;">
+    <span class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"></span>
+  </span>
+  <span class="button-label">
+    {% slot %}
+    {% endslot %}
+  </span>
   </{% if attrs.href %}a{% else %}button{% endif %}>
