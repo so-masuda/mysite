@@ -1,4 +1,7 @@
-from playwright.sync_api import Page, expect, sync_playwright
+from playwright.sync_api import Page
+from playwright.sync_api import expect
+from playwright.sync_api import sync_playwright
+
 
 def verify_homepage(page: Page):
     """
@@ -12,6 +15,7 @@ def verify_homepage(page: Page):
 
     # 3. Screenshot: Capture the final result for visual verification.
     page.screenshot(path="verification/verification.png")
+
 
 if __name__ == "__main__":
     with sync_playwright() as p:
