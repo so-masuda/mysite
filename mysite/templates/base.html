@@ -16,12 +16,22 @@
     <meta name="author" content="So Masuda" />
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" />
     {% block css %}
-      <!-- Latest compiled and minified Bootstrap CSS -->
-      <link rel="stylesheet"
+      <!-- Preload the CSS file to improve FCP -->
+      <link rel="preload"
             href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+            as="style"
             integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
             crossorigin="anonymous"
-            referrerpolicy="no-referrer" />
+            referrerpolicy="no-referrer"
+            onload="this.onload=null;this.rel='stylesheet'" />
+      <!-- Fallback for browsers that don't support preload -->
+      <noscript>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+              integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
+              crossorigin="anonymous"
+              referrerpolicy="no-referrer" />
+      </noscript>
       <!-- Your stuff: Third-party CSS libraries go here -->
       <!-- This file stores project-specific CSS -->
       {% compress css %}
