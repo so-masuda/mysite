@@ -64,6 +64,17 @@ RUN chmod +x /start
 # Copy the application from the builder
 COPY --from=python-build-stage --chown=django:django ${APP_HOME} ${APP_HOME}
 
+# Compress static files
+RUN DJANGO_SETTINGS_MODULE="config.settings.production" \
+    DJANGO_SECRET_KEY="dummy-secret-key-for-build" \
+    DATABASE_URL="postgres://dummy:dummy@dummy/dummy" \
+    REDIS_URL="redis://dummy:6379/0" \
+    DJANGO_AWS_ACCESS_KEY_ID="dummy" \
+    DJANGO_AWS_SECRET_ACCESS_KEY="dummy" \
+    DJANGO_AWS_STORAGE_BUCKET_NAME="dummy" \
+    DJANGO_ADMIN_URL="dummy-admin/" \
+    python manage.py compress --force
+
 # make django owner of the WORKDIR directory as well.
 RUN chown django:django ${APP_HOME}
 
