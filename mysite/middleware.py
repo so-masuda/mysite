@@ -15,4 +15,5 @@ class ContentSecurityPolicyMiddleware:
             "img-src 'self' data:",
         ]
         response["Content-Security-Policy"] = "; ".join(csp_policy)
+        response["Referrer-Policy"] = "strict-origin-when-cross-origin"
         return response
