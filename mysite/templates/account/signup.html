@@ -30,7 +30,20 @@
         {% if field.field.required %}<span class="text-danger">*</span>{% endif %}
       </label>
       {{ field }}
-      {% if field.help_text %}<small class="form-text text-muted">{{ field.help_text }}</small>{% endif %}
+      {% if field.name == 'password1' %}
+        <small class="form-text text-muted">
+          <ul>
+            <li>{% translate "Your password can't be too similar to your other personal information." %}</li>
+            <li>{% translate "Your password must contain at least 8 characters." %}</li>
+            <li>{% translate "Your password can't be a commonly used password." %}</li>
+            <li>{% translate "Your password can't be entirely numeric." %}</li>
+          </ul>
+        </small>
+      {% elif field.name == 'password2' %}
+        {% comment %} do nothing {% endcomment %}
+      {% elif field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+      {% endif %}
       {% for error in field.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
     </div>
   {% endfor %}
