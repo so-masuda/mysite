@@ -15,6 +15,7 @@
     <meta name="description" content="Behold My Awesome Project!" />
     <meta name="author" content="So Masuda" />
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" />
+    <link rel="preload" href="{% static 'css/bootstrap.min.css' %}" as="style" />
     {% block css %}
       <!-- This file stores project-specific CSS -->
       {% compress css %}
