@@ -1,8 +1,5 @@
-# Palette's Journal 🎨
+## 2024-07-25 - Hardcoded Validation Rules
 
-This journal is for CRITICAL UX/accessibility learnings only.
+**Learning:** Hardcoding validation rules in templates creates a maintainability issue. If the backend validation logic changes, the frontend must be updated manually, otherwise the user will see outdated requirements.
 
-Format:
-`## YYYY-MM-DD - [Title]`
-`**Learning:** [UX/a11y insight]`
-`**Action:** [How to apply next time]`
+**Action:** When possible, dynamically generate validation messages from the backend form validators. If this is not possible, create a follow-up task to address the technical debt.
