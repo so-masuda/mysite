@@ -9,6 +9,7 @@ class ContentSecurityPolicyMiddleware:
         response = self.get_response(request)
         csp_policy = [
             "default-src 'self'",
+            "frame-ancestors 'self'",
             "script-src 'self' 'unsafe-inline' cdn.jsdelivr.net",
             "style-src 'self' 'unsafe-inline' cdn.jsdelivr.net",
             "font-src 'self' cdn.jsdelivr.net",
