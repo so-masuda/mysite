@@ -1,4 +1,10 @@
 # mysite/middleware.py
+import secrets
+
+
+def generate_nonce(length=16):
+    """Generate a random nonce."""
+    return secrets.token_hex(length)
 
 
 class ContentSecurityPolicyMiddleware:
@@ -6,12 +12,14 @@ class ContentSecurityPolicyMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
+        nonce = generate_nonce()
+        request.csp_nonce = nonce
         response = self.get_response(request)
         csp_policy = [
             "default-src 'self'",
             "frame-ancestors 'self'",
-            "script-src 'self' 'unsafe-inline' cdn.jsdelivr.net",
-            "style-src 'self' 'unsafe-inline' cdn.jsdelivr.net",
+            f"script-src 'self' 'nonce-{nonce}' 'strict-dynamic' cdn.jsdelivr.net",
+            f"style-src 'self' 'nonce-{nonce}' cdn.jsdelivr.net",
             "font-src 'self' cdn.jsdelivr.net",
             "img-src 'self' data:",
         ]
