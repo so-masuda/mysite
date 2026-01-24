@@ -25,6 +25,7 @@ class ContentSecurityPolicyMiddleware:
         ]
         response["Content-Security-Policy"] = "; ".join(csp_policy)
         response["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response["Cross-Origin-Opener-Policy"] = "same-origin"
         permissions_policy = [
             "accelerometer=()",
             "ambient-light-sensor=()",
