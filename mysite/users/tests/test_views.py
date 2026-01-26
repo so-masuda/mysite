@@ -23,27 +23,34 @@ pytestmark = pytest.mark.django_db
 
 
 class TestUserUpdateView:
-    """
-    TODO:
-        extracting view initialization code as class-scoped fixture
-        would be great if only pytest-django supported non-function-scoped
-        fixture db access -- this is a work-in-progress for now:
-        https://github.com/pytest-dev/pytest-django/pull/258
-    """
+    @pytest.fixture(scope="class")
+    def view(self):
+        return UserUpdateView()
+
+    @pytest.fixture(scope="class")
+    def rf(self):
+        return RequestFactory()
+
+    @pytest.fixture(scope="class")
+    def user(self, django_db_setup, django_db_blocker):
+        with django_db_blocker.unblock():
+            user = UserFactory()
+            yield user
+            user.delete()
 
     def dummy_get_response(self, request: HttpRequest):
         return None
 
-    def test_get_success_url(self, user: User, rf: RequestFactory):
-        view = UserUpdateView()
+    def test_get_success_url(
+        self, user: User, rf: RequestFactory, view: UserUpdateView
+    ):
         request = rf.get("/fake-url/")
         request.user = user
 
         view.request = request
         assert view.get_success_url() == f"/users/{user.username}/"
 
-    def test_get_object(self, user: User, rf: RequestFactory):
-        view = UserUpdateView()
+    def test_get_object(self, user: User, rf: RequestFactory, view: UserUpdateView):
         request = rf.get("/fake-url/")
         request.user = user
 
@@ -51,8 +58,7 @@ class TestUserUpdateView:
 
         assert view.get_object() == user
 
-    def test_form_valid(self, user: User, rf: RequestFactory):
-        view = UserUpdateView()
+    def test_form_valid(self, user: User, rf: RequestFactory, view: UserUpdateView):
         request = rf.get("/fake-url/")
 
         # Add the session/message middleware to the request
