@@ -1,6 +1,7 @@
 from allauth.account.forms import SignupForm
 from allauth.socialaccount.forms import SignupForm as SocialSignupForm
 from django.contrib.auth import forms as admin_forms
+from django.contrib.auth.password_validation import password_validators_help_texts
 from django.utils.translation import gettext_lazy as _
 
 from .models import User
@@ -30,6 +31,19 @@ class UserSignupForm(SignupForm):
     Default fields will be added automatically.
     Check UserSocialSignupForm for accounts created from social.
     """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["password"].help_text = (
+            "<ul>"
+            + "".join(
+                [
+                    f"<li>{text}</li>"
+                    for text in password_validators_help_texts()
+                ],
+            )
+            + "</ul>"
+        )
 
 
 class UserSocialSignupForm(SocialSignupForm):
