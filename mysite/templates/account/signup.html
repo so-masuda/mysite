@@ -30,9 +30,7 @@
         {% if field.field.required %}<span class="text-danger">*</span>{% endif %}
       </label>
       {{ field }}
-      {% if field.help_text %}
-        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
-      {% endif %}
+      {% if field.help_text %}<small class="form-text text-muted">{{ field.help_text|safe }}</small>{% endif %}
       {% for error in field.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
     </div>
   {% endfor %}
